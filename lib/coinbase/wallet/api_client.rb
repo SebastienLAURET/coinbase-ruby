@@ -61,6 +61,8 @@ module Coinbase
 
       def historic_prices(params = {})
         out = nil
+        pair = determine_currency_pair(params)
+        
         get("/v2/prices/#{pair}/historic", params) do |resp|
           out = APIObject.new(self, resp.data)
           yield(out, resp) if block_given?
